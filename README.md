@@ -20,6 +20,15 @@ npx supabase status
 npx supabase db
 ```
 
+Commands to run for fronend:
+```
+# Install dependencies
+npm i
+
+# Run the development environment locally
+npm run dev
+```
+
 # Backend architecture
 - `app.py`: This is where application initialization code goes, and where you will call your routes functions to register routes/functionality (see `routes/`).
 - `routes/`: This is where individual route handlers will be made, and where the bulk of logic and db actions will be done. Each file in this directory has a `XXXRoutes(app: Flask, supabase: Client)` function, and this function contains multiple routes for a single 'concern' (clubs, students, links, etc.).
