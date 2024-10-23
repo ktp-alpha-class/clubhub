@@ -20,7 +20,7 @@ npx supabase status
 npx supabase db
 ```
 
-Commands to run for fronend:
+Commands to run for frontend:
 ```
 # Install dependencies
 npm i
