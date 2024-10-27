@@ -1,4 +1,3 @@
-// src/components/Dashboard.tsx
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import ClubCard from './ClubCard';
@@ -19,7 +18,6 @@ const clubs = [
     description: 'Group of undergraduate students, representing the Office of Alumni Relations',
     image: 'images/saa.jpg',
   },
-  // Add more clubs as needed
 ];
 
 const Dashboard: React.FC = () => {
