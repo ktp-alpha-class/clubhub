@@ -1,11 +1,9 @@
-/* src/styles/Profile.module.css */
 .container {
     display: flex;
 }
 
 .mainContent {
     margin-left: 220px;
-    /* Adjust based on sidebar width */
     padding: 20px;
     width: 100%;
 }
