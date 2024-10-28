@@ -8,7 +8,7 @@
 Commands to run (all should be run in backend directory!):
 ```
 # Run app
-pipenv run flask run -port 3000
+pipenv run flask run -p 3000
 
 # Start supabase containers (DB/Auth)
 npx supabase start -x vector
