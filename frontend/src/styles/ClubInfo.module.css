@@ -1,0 +1,41 @@
+/* src/styles/ClubInfo.module.css */
+.container {
+    display: flex;
+}
+
+.mainContent {
+    margin-left: 220px;
+    /* Adjust based on sidebar width */
+    padding: 20px;
+    width: 100%;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.clubDetails {
+    display: flex;
+    align-items: center;
+}
+
+.clubLogo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.info h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.info p {
+    margin: 5px 0;
+}
