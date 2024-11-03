@@ -6,7 +6,7 @@ import styles from '../../styles/Explore.module.css';
 const ExplorePage: React.FC = () => {
   return (
     <div className={styles.container}>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <div className={styles.mainContent}>
         <h1>Explore Clubs</h1>
         <Dashboard />
