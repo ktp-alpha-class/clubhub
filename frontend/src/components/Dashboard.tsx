@@ -1,24 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import ClubCard from './ClubCard';
-
-const clubs = [
-  {
-    name: 'Kappa Theta Pi',
-    description: 'First Professional Co-ed Tech Fraternity',
-    image: 'images/ktp.jpg',
-  },
-  {
-    name: 'Husky Ambassadors',
-    description: 'Tour Guides for the University',
-    image: 'images/huskyAmbassadors.jpg',
-  },
-  {
-    name: 'Student Alumni Ambassadors',
-    description: 'Group of undergraduate students, representing the Office of Alumni Relations',
-    image: 'images/saa.jpg',
-  },
-];
+import { clubs } from '../app/shared/clubs';
 
 const Dashboard: React.FC = () => {
   return (
