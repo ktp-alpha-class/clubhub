@@ -1,6 +1,7 @@
 from flask import Flask
 from supabase import create_client
 
+from routes.auth import AuthRoutes
 from routes.examples import ExamplesRoutes
 from routes.club import ClubRoutes
 from routes.club_event import ClubEventRoutes
@@ -19,6 +20,8 @@ def create_app():
     # Initialize routes here!
     ExamplesRoutes(app, supabase)
 
+    AuthRoutes(app, supabase)
+    
     ClubRoutes(app, supabase)
     ClubEventRoutes(app, supabase)
     ClubLinkRoutes(app, supabase)
