@@ -13,6 +13,7 @@ def authenticate_user(supabase: Client):
         # Only authenticated requests will reach here
         return jsonify({'message': f'Hello, {user_id}!'})
     """
+    
     def decorator(f):
         @wraps(f)
         def decorated(*args, **kwargs):

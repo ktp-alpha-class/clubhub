@@ -14,6 +14,7 @@ def authenticate_club_admin(supabase: Client):
         # Only authenticated requests by admins of the given club will reach here
         return jsonify({'message': f'Hello, {user_id}!'})
     """
+    
     def decorator(f):
         @wraps(f)
         def decorated(*args, **kwargs):
