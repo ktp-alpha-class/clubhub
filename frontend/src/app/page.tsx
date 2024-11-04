@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import styles from '../styles/Home.module.css';
 import Sidebar from '../components/Sidebar';
+import "./globals.css";
 
 export default function Home() {
   const router = useRouter();
