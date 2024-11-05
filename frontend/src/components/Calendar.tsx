@@ -1,38 +1,33 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { ChevronLeft, ChevronRight, Search, Users } from "lucide-react"
+import { useState } from "react";
+import { ChevronLeft, ChevronRight, Search, Users } from "lucide-react";
 import '@/app/globals.css';
 
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Separator } from "@/components/ui/separator"
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { clubs } from "../app/shared/clubs";
 
 interface Event {
   eventName: string
   time: string
   location: string
-}
+};
 
 const events: Event[] = [
   { eventName: 'Event1', time: '6:00 - 7:00', location: 'Snell' },
   { eventName: 'Event2', time: '7:00 - 8:00', location: 'Shillman' },
   { eventName: 'Event3', time: '8:00 - 9:30', location: 'Curry' },
-]
-
-const clubs = [
-  { name: "Club name", id: 1 },
-  { name: "Club name", id: 2 },
-  { name: "Club name", id: 3 },
-]
+];
 
 export default function Calendar() {
-  const [currentDate, setCurrentDate] = useState(new Date())
-  const [currentView, setCurrentView] = useState<'Day' | 'Week' | 'Month'>('Day')
-  const [selectedCalendars, setSelectedCalendars] = useState(['calendar one', 'calendar two'])
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentView, setCurrentView] = useState<'Day' | 'Week' | 'Month'>('Day');
+  const [selectedCalendars, setSelectedCalendars] = useState(['calendar one', 'calendar two']);
 
   return (
     <div className="flex h-screen bg-background ml-[225px]">
@@ -158,4 +153,4 @@ export default function Calendar() {
       </div>
     </div>
   )
-}
+};
