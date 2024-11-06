@@ -1,9 +1,10 @@
 from flask import Flask, jsonify
 from supabase import Client
+from auth import authentication_club_admin
+
 
 # Put general club routes here (info, no links or events stuff)
 def ClubRoutes(app: Flask, supabase: Client):
-    pass
 
     @app.route("/club/<club_id>", methods=["PUT"])
     @authenticate_club_admin(supabase)
