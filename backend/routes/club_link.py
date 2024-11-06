@@ -3,4 +3,15 @@ from supabase import Client
 
 # Put club link routes here (creating, reading, updating, deleting)
 def ClubLinkRoutes(app: Flask, supabase: Client):
-    pass
+
+    @app.route('/club/<club_id>/links/<link_id>', methods=['DELETE'])
+    def delete_club_link(club_id):
+        try:
+            response = supabase.table('clubs').delete().eq('club_id', club_id).execute()
+
+            if not response.data:
+                return jsonify({"error": "Club link not found"}), 404
+            
+            return jsonify({"message": "Club link deleted successfully"})
+        except Exception as e:
+            return {"error": str(e)}, 400
