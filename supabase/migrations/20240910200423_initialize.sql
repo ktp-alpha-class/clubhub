@@ -10,10 +10,4 @@ CREATE TABLE examples (
     some_text varchar(100) NOT NULL
 );
 
-CREATE TABLE User (
-    id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-    created_at timestamp WITH time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    username varchar(100) NOT NULL
-);
-
 COMMIT;
