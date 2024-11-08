@@ -82,4 +82,20 @@ CREATE TABLE event_ownerships (
     FOREIGN KEY (club_id) REFERENCES clubs(club_id)
 );
 
+CREATE TABLE club_links (
+    link_id SERIAL PRIMARY KEY,
+    link_name VARCHAR(50),
+    link_url VARCHAR(50),
+    club_id INT NOT NULL,
+    FOREIGN KEY (club_id) REFERENCES clubs(club_id)
+);
+
+CREATE TABLE club_admins (
+    user_id SERIAL NOT NULL,
+    club_id SERIAL NOT NULL,
+    PRIMARY KEY (user_id, club_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (club_id) REFERENCES clubs(club_id)
+);
+
 COMMIT;
