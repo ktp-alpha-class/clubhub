@@ -10,4 +10,76 @@ CREATE TABLE examples (
     some_text varchar(100) NOT NULL
 );
 
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    bio TEXT,
+    major VARCHAR(100),
+    year VARCHAR(10),
+    profile_picture_url VARCHAR(255),
+    supabase_id uuid UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE clubs (
+    club_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    privacy_level VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE roles (
+    role_id SERIAL PRIMARY KEY,
+    role_name VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE club_memberships (
+    user_id INT NOT NULL,
+    club_id INT NOT NULL,
+    role_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, club_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (club_id) REFERENCES clubs(club_id),
+    FOREIGN KEY (role_id) REFERENCES roles(role_id)
+);
+
+CREATE TABLE tags (
+    tag_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE tag_assignments (
+    tag_id INT NOT NULL,
+    club_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (tag_id, club_id),
+    FOREIGN KEY (tag_id) REFERENCES tags(tag_id),
+    FOREIGN KEY (club_id) REFERENCES clubs(club_id)
+);
+
+CREATE TABLE events (
+    event_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    date DATE,
+    category VARCHAR(100),
+    privacy_level VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE event_ownerships (
+    event_id INT NOT NULL,
+    club_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (event_id, club_id),
+    FOREIGN KEY (event_id) REFERENCES events(event_id),
+    FOREIGN KEY (club_id) REFERENCES clubs(club_id)
+);
+
 COMMIT;
