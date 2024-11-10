@@ -6,16 +6,18 @@ from supabase import Client
 def ClubEventRoutes(app: Flask, supabase: Client):
     
     @app.route("/club/<club_id>/events/<event_id>", methods=["DELETE"])
-    def delete_event(club_id, event_id):
+    @authenticate_club_admin(supabase)
+    def delete_event(club_id, event_id, admin_id):
         try:
             response = supabase.table("events").delete().eq("club_id", club_id).eq("event_id", event_id).execute()
             
             if not response.data:
                 return jsonify({"error": "Event not found"}), 404
             
-            return jsonify({response})
+            return {}, 200
         except Exception as e:
             return {"error": str(e)}, 500
+        
     @app.route("/club/<club_id>/events/<event_id>", methods=["PUT"])
     @authenticate_club_admin(supabase)
     def update_event(club_id, event_id, admin_id):
