@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 from supabase import Client
 
-from backend.auth.authenticate_user import authenticate_user
+from auth.authenticate_user import authenticate_user
 
 # Single route function for this file, that handles all routes pertaining to
 # 'Examples' (something I made up)
