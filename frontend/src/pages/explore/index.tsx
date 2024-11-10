@@ -2,6 +2,7 @@ import React from 'react';
 import Sidebar from '../../components/Sidebar';
 import Dashboard from '../../components/Dashboard';
 import styles from '../../styles/Explore.module.css';
+import '@/app/globals.css';
 
 const ExplorePage: React.FC = () => {
   return (

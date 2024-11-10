@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from '../../components/Sidebar';
 import styles from '../../styles/Profile.module.css';
+import '@/app/globals.css';
 
 const Profile: React.FC = () => {
   return (
