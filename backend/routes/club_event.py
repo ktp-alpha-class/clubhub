@@ -12,6 +12,6 @@ def ClubEventRoutes(app: Flask, supabase: Client):
             if not response.data:
                 return jsonify({"error": "Event not found"}), 404
             
-            return jsonify({"message": "Event deleted successfully"})
+            return jsonify({response})
         except Exception as e:
-            return {"error": str(e)}, 400
+            return {"error": str(e)}, 500
