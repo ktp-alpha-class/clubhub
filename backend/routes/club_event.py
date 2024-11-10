@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from auth import authenticate_club_admin
+from auth.authenticate_club_admin import authenticate_club_admin
 from supabase import Client
 
 # Put routes for club events here (getting event of specific club, creating event for club, etc.)
@@ -25,6 +25,6 @@ def ClubEventRoutes(app: Flask, supabase: Client):
             if not response.data:
                 return jsonify({"error": "Event not found"}), 404
 
-            return jsonify({response.data})
+            return jsonify(response.data[0])
         except Exception as e:
             return jsonify({"error": str(e)}), 500

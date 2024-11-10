@@ -98,3 +98,30 @@ INSERT INTO users (
         id
     FROM auth.users
 );
+
+-- Create a sample club
+INSERT INTO clubs (name, description, privacy_level) VALUES (
+    'Sample Tech Club',
+    'A club focused on technology, programming and innovation. Open to all students interested in tech.',
+    'public'
+);
+
+-- Create a sample event
+INSERT INTO events (name, description, date, category, privacy_level, club_id) 
+SELECT 
+    'Tech Talk Workshop',
+    'Join us for an engaging workshop on emerging technologies and programming best practices.',
+    '2024-03-15',
+    'Workshop', 
+    'public',
+    club_id
+FROM clubs
+WHERE name = 'Sample Tech Club';
+
+-- Make one user admin of sample tech club
+INSERT INTO club_admins (user_id, club_id)
+SELECT 
+    u.user_id,
+    (SELECT club_id FROM clubs WHERE name = 'Sample Tech Club')
+FROM users u
+WHERE u.first_name = 'User1';

@@ -64,21 +64,14 @@ CREATE TABLE tag_assignments (
 );
 
 CREATE TABLE events (
+    club_id INT NOT NULL,
     event_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     description TEXT,
     date DATE,
     category VARCHAR(100),
     privacy_level VARCHAR(50),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE event_ownerships (
-    event_id INT NOT NULL,
-    club_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (event_id, club_id),
-    FOREIGN KEY (event_id) REFERENCES events(event_id),
     FOREIGN KEY (club_id) REFERENCES clubs(club_id)
 );
 
