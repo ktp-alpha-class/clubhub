@@ -41,3 +41,20 @@ def ClubEventRoutes(app: Flask, supabase: Client):
             return jsonify(response.data[0])
         except Exception as e:
             return jsonify({"error": str(e)}), 500
+
+    @app.route("/club/<club_id>/events/<event_id>", methods=["GET"])
+    @authenticate_club_admin(supabase)
+    def get_event(club_id, event_id, admin_id):
+
+        try:
+            response = (supabase.table("events")
+                        .select("*")
+                        .eq("club_id", club_id)
+                        .eq("event_id", event_id)
+                        .single()
+                        .execute())
+            
+            return jsonify(response.data), 200 if response.data else jsonify({"error": "Event not found"}), 404
+
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
