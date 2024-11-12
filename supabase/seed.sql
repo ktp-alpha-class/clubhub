@@ -107,11 +107,11 @@ INSERT INTO clubs (name, description, privacy_level) VALUES (
 );
 
 -- Create a sample event
-INSERT INTO events (name, description, date, category, privacy_level, club_id) 
+INSERT INTO events (name, description, event_time, category, privacy_level, club_id) 
 SELECT 
     'Tech Talk Workshop',
     'Join us for an engaging workshop on emerging technologies and programming best practices.',
-    '2024-03-15',
+    '2024-03-15T14:00:00',
     'Workshop', 
     'public',
     club_id
