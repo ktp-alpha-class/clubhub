@@ -19,7 +19,7 @@ const badgePlaceholders = [
 ];
 
 const ClubInfo: React.FC = () => {
-  const club = clubs.at(0);
+  const club = clubs.at(1);
 
   return (
     <div className={styles.container}>
