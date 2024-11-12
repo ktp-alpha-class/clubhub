@@ -18,7 +18,7 @@ def ClubLinkRoutes(app: Flask, supabase: Client):
             if not response.data:
                 return jsonify({"error": "Club link not found"}), 404
 
-            return response.data[0]
+            return response.data[0], 200
         
         except Exception as e:
             return jsonify({"error": str(e)}), 500
