@@ -188,3 +188,29 @@ VALUES
 (1, 1), -- User1 is admin of Coding Club
 (2, 1), -- User2 is admin of Coding Club
 (4, 2); -- User4 is admin of Book Club
+-- Create a sample club
+INSERT INTO clubs (name, description, privacy_level) VALUES (
+    'Sample Tech Club',
+    'A club focused on technology, programming and innovation. Open to all students interested in tech.',
+    'public'
+);
+
+-- Create a sample event
+INSERT INTO events (name, description, event_time, category, privacy_level, club_id) 
+SELECT 
+    'Tech Talk Workshop',
+    'Join us for an engaging workshop on emerging technologies and programming best practices.',
+    '2024-03-15T14:00:00',
+    'Workshop', 
+    'public',
+    club_id
+FROM clubs
+WHERE name = 'Sample Tech Club';
+
+-- Make one user admin of sample tech club
+INSERT INTO club_admins (user_id, club_id)
+SELECT 
+    u.user_id,
+    (SELECT club_id FROM clubs WHERE name = 'Sample Tech Club')
+FROM users u
+WHERE u.first_name = 'User1';
