@@ -12,8 +12,8 @@ def EventRoutes(app: Flask, supabase: Client):
         URL Parameters:
             page (int): Page number for pagination (default: 1).
             page_size (int): Number of events per page (default: 10).
-            start_date (str): Filter start date for events in 'YYYY-MM-DD' format (optional).
-            end_date (str): Filter end date for events in 'YYYY-MM-DD' format (optional).
+            start_time (str): Filter start time for events in 'YYYY-MM-DDTHH:MM:SSZ' format (optional).
+            end_time (str): Filter end time for events in 'YYYY-MM-DDTHH:MM:SSZ' format (optional).
 
         Returns:
             JSON: A paginated list of events with metadata.
@@ -25,15 +25,15 @@ def EventRoutes(app: Flask, supabase: Client):
             offset = (page - 1) * page_size
 
             # Date filtering parameters
-            start_date = request.args.get('start_date') or datetime.datetime.min.strftime('%Y-%m-%d')
-            end_date = request.args.get('end_date') or datetime.datetime.max.strftime('%Y-%m-%d')
+            start_time = request.args.get('start_time') or datetime.datetime.min.strftime('%Y-%m-%dT%H:%M:%SZ')
+            end_time = request.args.get('end_time') or datetime.datetime.max.strftime('%Y-%m-%dT%H:%M:%SZ')
 
             # Build query
             query = supabase.table('events') \
-                .select('*, event_ownerships!inner(club_id)', count='exact') \
-                .eq('event_ownerships.club_id', clubId) \
-                .gte('date', start_date) \
-                .lte('date', end_date) \
+                .select('*') \
+                .eq('club_id', clubId) \
+                .gte('event_time', start_time) \
+                .lte('event_time', end_time) \
                 .range(offset, offset + page_size - 1)
 
             # Execute query

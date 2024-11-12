@@ -126,6 +126,15 @@ VALUES
 (5, 2, 1), -- User5 is Member of Book Club
 (6, 3, 1); -- User6 is Member of Music Club
 
+-- Insert data into club_admins table
+INSERT INTO club_admins (user_id, club_id)
+SELECT u.user_id, c.club_id
+FROM users u, clubs c
+WHERE 
+    (u.first_name = 'User1' AND c.name = 'Coding Club') OR
+    (u.first_name = 'User2' AND c.name = 'Coding Club') OR
+    (u.first_name = 'User4' AND c.name = 'Book Club');
+
 -- Insert data into tags table
 INSERT INTO tags (name)
 VALUES
@@ -143,36 +152,23 @@ VALUES
 (2, 3); -- Arts tag assigned to Music Club
 
 -- Insert data into events table
-INSERT INTO events (name, description, date, category, privacy_level)
+INSERT INTO events (name, description, event_time, category, privacy_level, club_id)
 VALUES
-('Hackathon 2024', 'An event for coders to build projects in 24 hours.', '2024-05-20', 'Technology', 'Public'),
-('Book Fair', 'Annual book fair with guest authors.', '2024-06-15', 'Literature', 'Public'),
-('Music Fest', 'A festival showcasing local bands.', '2024-07-10', 'Arts', 'Public'),
-('Science Fair', 'Competition for students to present science projects.', '2024-08-05', 'Science', 'Private'),
-('Sports Day', 'Inter-club sports competition.', '2024-09-01', 'Sports', 'Public'),
-('Art Exhibition', 'Display of student artwork.', '2024-10-10', 'Arts', 'Public'),
-('Tech Talk', 'Guest speaker on latest technology trends.', '2024-11-15', 'Technology', 'Public'),
-('Literary Quiz', 'Trivia quiz on famous authors and books.', '2024-12-20', 'Literature', 'Public'),
-('Music Workshop', 'Hands-on workshop for music enthusiasts.', '2025-01-25', 'Arts', 'Public'),
-('Science Symposium', 'Presentations on scientific research.', '2025-02-20', 'Science', 'Public'),
-('Sports Carnival', 'Annual sports event with various games.', '2025-03-15', 'Sports', 'Public');
+('Hackathon 2024', 'An event for coders to build projects in 24 hours.', '2024-05-20 09:00:00+00', 'Technology', 'Public', 1),
+('Book Fair', 'Annual book fair with guest authors.', '2024-06-15 10:00:00+00', 'Literature', 'Public', 2),
+('Music Fest', 'A festival showcasing local bands.', '2024-07-10 18:00:00+00', 'Arts', 'Public', 3),
+('Science Fair', 'Competition for students to present science projects.', '2024-08-05 13:00:00+00', 'Science', 'Private', 4),
+('Sports Day', 'Inter-club sports competition.', '2024-09-01 08:00:00+00', 'Sports', 'Public', 4),
+('Art Exhibition', 'Display of student artwork.', '2024-10-10 11:00:00+00', 'Arts', 'Public', 4),
+('Tech Talk', 'Guest speaker on latest technology trends.', '2024-11-15 15:00:00+00', 'Technology', 'Public', 4),
+('Literary Quiz', 'Trivia quiz on famous authors and books.', '2024-12-20 14:00:00+00', 'Literature', 'Public', 4),
+('Music Workshop', 'Hands-on workshop for music enthusiasts.', '2025-01-25 10:00:00+00', 'Arts', 'Public', 4),
+('Science Symposium', 'Presentations on scientific research.', '2025-02-20 09:00:00+00', 'Science', 'Public', 2),
+('Science Symposium', 'Presentations on scientific research.', '2025-02-20 09:00:00+00', 'Science', 'Public', 4),
+('Sports Carnival', 'Annual sports event with various games.', '2025-03-15 08:00:00+00', 'Sports', 'Public', 4);
 
-
--- Insert data into event_ownerships table
-INSERT INTO event_ownerships (event_id, club_id)
-VALUES
-(1, 1), -- Hackathon 2024 organized by Coding Club
-(2, 2), -- Book Fair organized by Book Club
-(3, 3), -- Music Fest organized by Music Club
-(4, 4), -- Science Fair organized by Test Club
-(5, 4), -- Sports Day organized by Test Club
-(6, 4), -- Art Exhibition organized by Test Club
-(7, 4), -- Tech Talk organized by Test Club
-(8, 4), -- Literary Quiz organized Test Club
-(9, 4), -- Music Workshop organized by Test Club,
-(10, 2),
-(10, 4), -- Science Symposium organized by Test Club and Book Club
-(11, 4); -- Sports Carnival organized by Test Club
+-- The event_ownerships table is no longer needed as we're directly assigning club_id in the events table
+-- If you need to keep track of multiple clubs organizing a single event, you might need to revisit this approach
 
 -- Insert data into club_links table
 INSERT INTO club_links (link_name, link_url, club_id)
@@ -181,36 +177,3 @@ VALUES
 ('GitHub', 'http://github.com/codingclub', 1),
 ('Facebook', 'http://facebook.com/bookclub', 2),
 ('Instagram', 'http://instagram.com/musicclub', 3);
-
--- Insert data into club_admins table
-INSERT INTO club_admins (user_id, club_id)
-VALUES
-(1, 1), -- User1 is admin of Coding Club
-(2, 1), -- User2 is admin of Coding Club
-(4, 2); -- User4 is admin of Book Club
--- Create a sample club
-INSERT INTO clubs (name, description, privacy_level) VALUES (
-    'Sample Tech Club',
-    'A club focused on technology, programming and innovation. Open to all students interested in tech.',
-    'public'
-);
-
--- Create a sample event
-INSERT INTO events (name, description, event_time, category, privacy_level, club_id) 
-SELECT 
-    'Tech Talk Workshop',
-    'Join us for an engaging workshop on emerging technologies and programming best practices.',
-    '2024-03-15T14:00:00',
-    'Workshop', 
-    'public',
-    club_id
-FROM clubs
-WHERE name = 'Sample Tech Club';
-
--- Make one user admin of sample tech club
-INSERT INTO club_admins (user_id, club_id)
-SELECT 
-    u.user_id,
-    (SELECT club_id FROM clubs WHERE name = 'Sample Tech Club')
-FROM users u
-WHERE u.first_name = 'User1';
