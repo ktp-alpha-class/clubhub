@@ -68,7 +68,7 @@ CREATE TABLE events (
     event_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     description TEXT,
-    date DATE,
+    event_time TIMESTAMPTZ NOT NULL,
     category VARCHAR(100),
     privacy_level VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

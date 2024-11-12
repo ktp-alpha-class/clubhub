@@ -45,7 +45,7 @@ def authenticate_club_admin(supabase: Client):
                 return f(*args, **kwargs)
                 
             except Exception as e:
-                return {'error': 'Unauthorized'}, 401
+                return {'error': str(e)}, 500
         
         return decorated
     return decorator
