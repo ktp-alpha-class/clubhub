@@ -6,21 +6,21 @@ from backend.auth.authenticate_user import authenticate_user
 # Put routes for users (profile, following) here
 def UserRoutes(app: Flask, supabase: Client):
     # Get user profile data
-    @app.route("/user/<user_id>")
+    @app.route("/me", methods=["GET"])
     @authenticate_user(supabase)
-    def get_me(user_id):
+    def get_user(user_id):
         try:
             response = (
-                supabase.table("Users")
+                supabase.table("users")
                 .select("*")
-                .eq("user_id", user_id)
+                .eq("supabase_id", user_id)
                 .execute()
             )
 
             if not response.data:
                 return jsonify({"error": "User not found"}), 404
 
-            return jsonify({"user": response.data[0]}), 200
+            return jsonify(response.data[0]), 200
 
         except Exception as e:
-            return jsonify({"error": str(e)}), 400
+            return jsonify({"error": str(e)}), 500
