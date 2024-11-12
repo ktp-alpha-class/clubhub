@@ -1,4 +1,6 @@
+import React from "react";
 import styles from "../../styles/ClubInfo.module.css";
+import { clubs } from "../../app/shared/clubs";
 
 type clubHeaderInput = {
   name: any;
@@ -6,6 +8,8 @@ type clubHeaderInput = {
 };
 
 export default function ClubHeader({ name, image }: clubHeaderInput) {
+  const club = clubs.find((c) => c.name === name);
+
   return (
     <div className={styles.clubHeader}>
       <div className={styles.miniFlex}>
@@ -13,7 +17,14 @@ export default function ClubHeader({ name, image }: clubHeaderInput) {
         <h2 className={styles.clubName}>{name}</h2>
       </div>
       <div>
-        <button className={styles.headerButton}>Apply</button>
+        {club?.applicationLink && (
+          <button
+            className={styles.headerButton}
+            onClick={() => window.open(club.applicationLink, "_blank")}
+          >
+            Apply
+          </button>
+        )}
         <button className={styles.headerButton}>Follow</button>
       </div>
     </div>
