@@ -9,11 +9,11 @@ def ClubLinkRoutes(app: Flask, supabase: Client):
     @authenticate_club_admin(supabase)
     def delete_club_link(club_id, link_id, auth_id):
         try:
-            response = supabase.table('Club_link').delete().eq("club_id", club_id).eq("link_id", link_id).execute()
+            response = supabase.table('club_links').delete().eq("club_id", club_id).eq("link_id", link_id).execute()
 
             if not response.data:
                 return jsonify({"error": "Club link not found"}), 404
             
-            return jsonify({"message": "Club link deleted successfully"})
+            return "", 200
         except Exception as e:
-            return {"error": str(e)}, 400
+            return {"error": str(e)}, 500
