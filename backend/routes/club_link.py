@@ -4,11 +4,11 @@ from supabase import Client
 # Put club link routes here (creating, reading, updating, deleting)
 def ClubLinkRoutes(app: Flask, supabase: Client):
 
-    @app.route("/club/<club_id>/club_link/<link_id>", methods=["GET"])
+    @app.route("/club/<club_id>/links", methods=["GET"])
     def get_club_link(club_id, link_id):
         try:
             response = (
-                supabase.table("Club_link")
+                supabase.table("club_links")
                 .select("*")
                 .eq("club_id", club_id)
                 .eq("link_id", link_id)
@@ -18,7 +18,7 @@ def ClubLinkRoutes(app: Flask, supabase: Client):
             if not response.data:
                 return jsonify({"error": "Club link not found"}), 404
 
-            return jsonify({"club_link": response.data[0]}), 200
+            return response.data[0]
         
         except Exception as e:
-            return jsonify({"error": str(e)}), 400
+            return jsonify({"error": str(e)}), 500
