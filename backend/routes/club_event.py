@@ -45,37 +45,3 @@ def ClubEventRoutes(app: Flask, supabase: Client):
         except Exception as e:
             return jsonify({"error": str(e)}), 500
     
-    @app.route("/club/<club_id>/events", methods=["GET"])
-    @authenticate_club_admin(supabase)
-    def get_events(club_id, admin_id):
-
-        # assuming some date filters were passed
-        start_date = request.args.get("start_date")
-        end_date = request.args.get("end_date")
-
-        try:
-            query = (supabase.table("events")
-                     .select("*")
-                     .eq("club_id", club_id))
-
-            # filtering if `start_date` and/or `end_date` are provided (currently guessing that the format is YYYY-MM-DD)
-            if start_date:
-                try:
-                    start_date_parsed = datetime.strptime(start_date, "%Y-%m-%d")
-                    query = query.gte("event_date", start_date_parsed.isoformat())
-                except ValueError:
-                    return jsonify({"error": "Invalid start_date format. Use YYYY-MM-DD."}), 400
-
-            if end_date:
-                try:
-                    end_date_parsed = datetime.strptime(end_date, "%Y-%m-%d")
-                    query = query.lte("event_date", end_date_parsed.isoformat())
-                except ValueError:
-                    return jsonify({"error": "Invalid end_date format. Use YYYY-MM-DD."}), 400
-
-            response = query.execute()
-            return jsonify(response.data), 200 if response.data else jsonify({"message": "No events found"}), 404
-
-        except Exception as e:
-            return jsonify({"error": str(e)}), 500
-    
