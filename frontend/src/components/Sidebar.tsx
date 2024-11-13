@@ -9,7 +9,7 @@ const Sidebar: React.FC = () => {
       <ul>
         <li>
           <a href="/">
-            <Image src="/images/clubhub.png" alt="Logo" width={150} height={100} />
+            <Image src="/images/clubhub.png" alt="Logo" width={175} height={100} />
           </a>
         </li>
         <li><a href="/explore">Explore</a></li>
