@@ -43,7 +43,6 @@ def ClubEventRoutes(app: Flask, supabase: Client):
             return jsonify({"error": str(e)}), 500
     
     @app.route("/club/<club_id>/events/<event_id>", methods=["GET"])
-    @authenticate_club_admin(supabase)
     def get_event(club_id, event_id, admin_id):
 
         try:
