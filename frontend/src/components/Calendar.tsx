@@ -13,15 +13,16 @@ import { Separator } from "@/components/ui/separator";
 import { clubs } from "../app/shared/clubs";
 
 interface Event {
-  eventName: string
-  time: string
-  location: string
+  eventName: string;
+  time: string;
+  location: string;
+  clubId: number;
 };
 
 const events: Event[] = [
-  { eventName: 'Event1', time: '6:00 - 7:00', location: 'Snell' },
-  { eventName: 'Event2', time: '7:00 - 8:00', location: 'Shillman' },
-  { eventName: 'Event3', time: '8:00 - 9:30', location: 'Curry' },
+  { eventName: 'Event1', time: '6:00 - 7:00', location: 'Snell', clubId: 1 },
+  { eventName: 'Event2', time: '7:00 - 8:00', location: 'Shillman', clubId: 2 },
+  { eventName: 'Event3', time: '8:00 - 9:30', location: 'Curry', clubId: 3 },
 ];
 
 export default function Calendar() {
@@ -30,7 +31,7 @@ export default function Calendar() {
   const [selectedCalendars, setSelectedCalendars] = useState(['calendar one', 'calendar two']);
 
   return (
-    <div className="flex h-screen bg-background ml-[225px]">
+    <div className="flex h-screen bg-background">
       {/* Calendar Sidebar */}
       <div className="w-64 border-r bg-background">
         <div className="flex h-full flex-col gap-2 p-4">

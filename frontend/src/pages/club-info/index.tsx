@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "../../components/Sidebar";
+import Layout from "../../components/Layout";
 import styles from "../../styles/ClubInfo.module.css";
 import { clubs } from "../../app/shared/clubs";
 import ClubHeader from "./ClubHeader";
@@ -22,11 +22,8 @@ const ClubInfo: React.FC = () => {
   const club = clubs.at(1);
 
   return (
-    <div className={styles.container}>
-      <div>
-        <Sidebar />
-      </div>
-      <div>
+    <Layout>
+      <div className={styles.container}>
         <div className={styles.clubPage}>
           <ClubHeader name={club?.name} image={club?.image} />
           <div className={styles.clubContent}>
@@ -74,7 +71,7 @@ const ClubInfo: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
