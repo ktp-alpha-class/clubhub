@@ -16,7 +16,7 @@ def ClubRoutes(app: Flask, supabase: Client):
                 return jsonify({"error": "No data"}), 400
 
             response = (
-                supabase.table("club")
+                supabase.table("clubs")
                 .update(data)
                 .eq("club_id", club_id)
                 .execute()
@@ -25,6 +25,6 @@ def ClubRoutes(app: Flask, supabase: Client):
             if not response.data:
                 return jsonify({"error": "Data not found"}), 404
 
-            return jsonify({"message": "Event updated successfully", "updated_club": response.data})
+            return jsonify(response.data)
         except Exception as e:
-            return jsonify({"error": str(e)}), 400
+            return jsonify({"error": str(e)}), 500
