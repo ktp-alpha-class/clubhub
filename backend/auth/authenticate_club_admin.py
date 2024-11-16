@@ -26,25 +26,26 @@ def authenticate_club_admin(supabase: Client):
             
             try:
                 # Verify token with Supabase client
-                supabase: Client = kwargs['supabase']
                 user = supabase.auth.get_user(token)
                 if user is None:
                     return {'error': 'Unauthorized'}, 401
-            
+
+                user_object = supabase.table('users').select('*').eq('supabase_id', user.user.id).execute().data[0]
+
                 # Check if user is an admin of the given club
                 # Uncomment this when we have a club_admins table
-                #club_id = kwargs['club_id']
-                #club_admin = supabase.table('club_admins').select('*').eq('user_id', user.id).eq('club_id', club_id).execute().data
-                #if club_admin is None:
-                #    return {'error': 'Unauthorized'}, 401
+                club_id = kwargs['club_id']
+                club_admin = supabase.table('club_admins').select('*').eq('user_id', user_object['user_id']).eq('club_id', club_id).execute().data
+                if club_admin is None:
+                    return {'error': 'Unauthorized'}, 401
                 
                 # Add user ID to kwargs for route handler
-                kwargs['user_id'] = user.id
+                kwargs['admin_id'] = user_object['user_id']
                 
                 return f(*args, **kwargs)
                 
             except Exception as e:
-                return {'error': 'Unauthorized'}, 401
+                return {'error': str(e)}, 500
         
         return decorated
     return decorator

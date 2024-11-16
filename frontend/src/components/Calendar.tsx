@@ -13,24 +13,39 @@ import { Separator } from "@/components/ui/separator";
 import { clubs } from "../app/shared/clubs";
 
 interface Event {
-  eventName: string
-  time: string
-  location: string
+  eventName: string;
+  time: string;
+  location: string;
+  clubId: number;
 };
 
 const events: Event[] = [
-  { eventName: 'Event1', time: '6:00 - 7:00', location: 'Snell' },
-  { eventName: 'Event2', time: '7:00 - 8:00', location: 'Shillman' },
-  { eventName: 'Event3', time: '8:00 - 9:30', location: 'Curry' },
+  { eventName: 'Event1', time: '6:00 - 7:00', location: 'Snell', clubId: 1 },
+  { eventName: 'Event2', time: '7:00 - 8:00', location: 'Shillman', clubId: 2 },
+  { eventName: 'Event3', time: '8:00 - 9:30', location: 'Curry', clubId: 3 },
 ];
 
 export default function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [currentView, setCurrentView] = useState<'Day' | 'Week' | 'Month'>('Day');
   const [selectedCalendars, setSelectedCalendars] = useState(['calendar one', 'calendar two']);
+  const [followedClubs, setFollowedClubs] = useState<Set<number>>(new Set());
+
+  // handles the user following/unfollowing a club
+  const toggleFollow = (clubId: number) => {
+    setFollowedClubs((prevFollowedClubs) => {
+      const newFollowedClubs = new Set(prevFollowedClubs);
+      if (newFollowedClubs.has(clubId)) {
+        newFollowedClubs.delete(clubId);  // unfollow if already followed
+      } else {
+        newFollowedClubs.add(clubId);  // follow if not already followed
+      }
+      return newFollowedClubs;
+    });
+  };
 
   return (
-    <div className="flex h-screen bg-background ml-[225px]">
+    <div className="flex h-screen bg-background">
       {/* Calendar Sidebar */}
       <div className="w-64 border-r bg-background">
         <div className="flex h-full flex-col gap-2 p-4">
@@ -44,12 +59,14 @@ export default function Calendar() {
               <h3 className="text-sm font-medium text-muted-foreground">Clubs you follow</h3>
               <div className="space-y-2">
                 {clubs.map((club) => (
-                  <div key={club.id} className="flex items-center space-x-2">
-                    <Checkbox id={`club-${club.id}`} />
-                    <Label htmlFor={`club-${club.id}`} className="text-sm font-normal">
-                      {club.name}
-                    </Label>
-                  </div>
+                  followedClubs.has(club.id) && (
+                    <div key={club.id} className="flex items-center space-x-2">
+                      <Checkbox id={`club-${club.id}`} checked={true} disabled />
+                      <Label htmlFor={`club-${club.id}`} className="text-sm font-normal">
+                        {club.name}
+                      </Label>
+                    </div>
+                  )
                 ))}
               </div>
             </div>
@@ -65,8 +82,13 @@ export default function Calendar() {
                 {clubs.map((club) => (
                   <div key={club.id} className="flex items-center justify-between">
                     <span className="text-sm">{club.name}</span>
-                    <Button variant="outline" size="sm" className="h-7 text-xs">
-                      Follow
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-7 text-xs"
+                      onClick={() => toggleFollow(club.id)}
+                    >
+                      {followedClubs.has(club.id) ? "Unfollow" : "Follow"}
                     </Button>
                   </div>
                 ))}
