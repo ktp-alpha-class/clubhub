@@ -1,8 +1,6 @@
 .container {
   height: 100vh;
   background-color: white;
-  display: grid;
-  grid-template-columns: 1fr 14fr;
   padding: 0px;
   margin: 0px;
 }
