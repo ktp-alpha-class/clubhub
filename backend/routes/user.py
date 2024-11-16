@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 from supabase import Client
 
-from backend.auth.authenticate_user import authenticate_user
+from auth.authenticate_user import authenticate_user
 
 # Put routes for users (profile, following) here
 def UserRoutes(app: Flask, supabase: Client):
