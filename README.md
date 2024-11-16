@@ -8,7 +8,7 @@
 Commands to run (all should be run in backend directory!):
 ```
 # Run app
-pipenv run flask run -p 3000
+pipenv run flask --debug run -p 3000
 
 # Start supabase containers (DB/Auth)
 npx supabase start -x vector
@@ -17,7 +17,7 @@ npx supabase start -x vector
 npx supabase status
 
 # Reset DB (for new seed data, schema, etc.)
-npx supabase db
+npx supabase db reset
 ```
 
 Commands to run for frontend:

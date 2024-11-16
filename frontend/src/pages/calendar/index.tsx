@@ -1,14 +1,13 @@
 import React from 'react';
-import Sidebar from '../../components/Sidebar';
+import Layout from '../../components/Layout';
 import Calendar from '../../components/Calendar';
 import '../../app/globals.css';
 
 const ClubCalendar: React.FC = () => {
   return (
-    <div className="club-calendar">
-      <Sidebar />
+    <Layout>
       <Calendar />
-    </div>
+    </Layout>
   );
 };
 
