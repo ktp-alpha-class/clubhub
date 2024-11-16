@@ -4,9 +4,7 @@ from supabase import Client
 
 # Put general club routes here (info, no links or events stuff)
 def ClubRoutes(app: Flask, supabase: Client):
-        
     @app.route("/club/<club_id>", methods=["GET"])
-    @authenticate_club_admin(supabase)
     def get_club(club_id):
         try:
             response = (
