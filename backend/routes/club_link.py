@@ -1,13 +1,12 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from auth.authenticate_club_admin import authenticate_club_admin
 from supabase import Client
 
 # Put club link routes here (creating, reading, updating, deleting)
 def ClubLinkRoutes(app: Flask, supabase: Client):
- 
-    @app.route("/club/<club_id>/links", methods=["POST"])
+    @app.route("/club/<int:club_id>/links", methods=["POST"])
     @authenticate_club_admin(supabase)
-    def create_link(club_id):
+    def create_link(club_id, admin_id):
         try:
             data = request.json
 
@@ -23,10 +22,11 @@ def ClubLinkRoutes(app: Flask, supabase: Client):
                 "link_url": link_url
             }).execute()
 
-            if response.status_code == 201:
-                return jsonify({response.data[0]}), 201
-            else:
+            if not response.data:
                 return jsonify({"error": response.error_message}), 500
+            else:
+                return response.data[0], 200
+
         except Exception as e:
             return jsonify({"error": str(e)}), 500
 
