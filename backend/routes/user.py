@@ -24,3 +24,36 @@ def UserRoutes(app: Flask, supabase: Client):
 
         except Exception as e:
             return jsonify({"error": str(e)}), 500
+        
+    # Get clubs the user is following
+    @app.route("/me/following", methods=["GET"])
+    @authenticate_user(supabase)
+    def get_following(user_id):
+        try:
+            user_response = (
+                supabase.table("users")
+                #assuming we are gonna add a field for the clubs a user is following
+                .select("following_club_ids")  
+                .eq("user_id", user_id)
+                .execute()
+            )
+
+            if not user_response.data or not user_response.data[0].get("following_club_ids"):
+                return jsonify({"message": "User is not following any clubs"}), 200
+
+            club_ids = user_response.data[0]["following_club_ids"]
+
+            club_response = (
+                supabase.table("clubs")
+                .select("club_id, name")
+                .in_("club_id", club_ids)
+                .execute()
+            )
+
+            if not club_response.data:
+                return jsonify({"message": "No matching clubs found"}), 404
+
+            return club_response.data, 200
+
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
