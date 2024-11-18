@@ -33,11 +33,7 @@ const ClubCard: React.FC<ClubCardProps> = ({ name, description, image, badges })
           </Typography>
           <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', marginY: 1 }}>
             {badges.map((badge, index) => (
-<<<<<<< Updated upstream
-              <Label key={index} className="bg-blue-100 text-blue-600 p-1 rounded">
-=======
               <Label key={index} className="bg-primary text-primary-foreground p-1 rounded">
->>>>>>> Stashed changes
                 {badge}
               </Label>
             ))}
