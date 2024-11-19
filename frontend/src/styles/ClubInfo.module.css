@@ -132,6 +132,7 @@
   border: 3px solid black;
   height: 23rem;
   color: black;
+  cursor: pointer;
 }
 
 .eventImage {
@@ -163,6 +164,7 @@
 
 .eventDescription {
   font-size: 0.8rem;
+  padding-top: 0.5rem;
 }
 
 .events {
@@ -198,4 +200,31 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+}
+
+.modal {
+  position: absolute;
+  z-index: 2;
+  width: 27rem;
+  height: 27rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 2rem;
+}
+
+.modal .event {
+  width: 100%;
+  cursor: default;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0%;
+  left: 0%;
 }
